@@ -1,19 +1,226 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shaohan Wang</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f172a;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 16px;
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #dbeafe;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #bfdbfe;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #dbeafe;
+    }
+
+    a {
+      color: #7dd3fc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hi, I'm Shaohan 👋</h1>
-  <p>Electrical Engineering @ UMich</p>
+  <div id="particles-js"></div>
 
-  <h2>Projects</h2>
-  <ul>
-    <li>SAM2 Medical Segmentation</li>
-    <li>InEKF Robot Estimation</li>
-  </ul>
+  <main class="content">
+    <section class="hero">
+      <h1>Shaohan Wang</h1>
+      <p class="subtitle">Electrical Engineering @ UMich</p>
+      <p>
+        I am interested in robotics, computer vision, and medical image analysis.
+        This website showcases my projects and research work.
+      </p>
+    </section>
 
-  <h2>Contact</h2>
-  <p>Email: your@email.com</p>
+    <section>
+      <h2>Projects</h2>
+      <div class="projects">
+        <div class="card">
+          <h3>SAM2 Medical Segmentation</h3>
+          <p>
+            Fine-tuning SAM2 with LoRA for brain tumor segmentation on MRI slices.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>InEKF Robot Estimation</h3>
+          <p>
+            State estimation and velocity evaluation for legged robot motion.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Isaac Sim Robotics</h3>
+          <p>
+            Simulation and control experiments using NVIDIA Isaac Sim.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+      <p>GitHub: <a href="https://github.com/shaohanw" target="_blank">github.com/shaohanw</a></p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 60,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#38bdf8"
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: 0.5,
+          random: false
+        },
+        size: {
+          value: 3,
+          random: true
+        },
+        line_linked: {
+          enable: true,
+          distance: 120,
+          color: "#38bdf8",
+          opacity: 0.35,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            line_linked: {
+              opacity: 0.6
+            }
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
 </body>
 </html>
