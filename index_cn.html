@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>王少涵</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f172a;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 24px 96px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .lang-btn {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(125, 211, 252, 0.8);
+      border-radius: 10px;
+      color: #7dd3fc;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(6px);
+    }
+
+    .lang-btn:hover {
+      background: rgba(125, 211, 252, 0.12);
+      text-decoration: none;
+    }
+
+    .hero {
+      margin-bottom: 52px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0 0 12px 0;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 16px;
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #dbeafe;
+      margin-top: 0;
+    }
+
+    .subtitle {
+      font-size: 1.18rem;
+      color: #93c5fd;
+      margin-bottom: 12px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      display: block;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      text-decoration: none;
+    }
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      color: #bfdbfe;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #dbeafe;
+    }
+
+    .contact-box {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .contact-row {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #7dd3fc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .muted {
+      color: #93c5fd;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+
+  <main class="content">
+
+    <!-- 语言切换 -->
+    <div class="topbar">
+      <a class="lang-btn" href="index.html">English</a>
+    </div>
+
+    <!-- 个人信息 -->
+    <section class="hero">
+      <h1>王少涵</h1>
+
+      <p class="subtitle">
+        密歇根大学电子与计算机工程硕士在读
+      </p>
+
+      <p>
+        研究方向包括控制系统、机器人与计算机视觉。
+        本网站用于展示我的项目与相关研究工作。
+      </p>
+    </section>
+
+    <!-- 项目 -->
+    <section>
+      <h2>项目</h2>
+
+      <div class="projects">
+        <a class="card" href="sam2.html">
+          <h3>SAM2 医学图像分割</h3>
+          <p>
+            基于 LoRA（约0.7%可训练参数）对 SAM2 进行微调，
+            实现 MRI 脑肿瘤区域分割。
+          </p>
+        </a>
+
+        <a class="card" href="inekf.html">
+          <h3>InEKF 机器人状态估计</h3>
+          <p>
+            结合足部接触约束与 InEKF 算法，
+            提升足式机器人速度估计精度。
+          </p>
+        </a>
+
+        <a class="card" href="acc.html">
+          <h3>嵌入式自适应巡航控制系统</h3>
+          <p>
+            使用 MATLAB/Simulink 建立 ACC 控制模型，
+            并部署至 NXP 微控制器，实现软硬件联合仿真。
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section>
+      <h2>联系方式</h2>
+
+      <div class="contact-box">
+        <div class="contact-row">
+          <span class="muted">邮箱：</span>
+          <a href="mailto:shaohanw@umich.edu">shaohanw@umich.edu</a>（主要）、
+          <a href="mailto:shhan066@outlook.com">shhan066@outlook.com</a>
+        </div>
+
+        <div class="contact-row">
+          <span class="muted">GitHub：</span>
+          <a href="https://github.com/shaohanw" target="_blank">
+            github.com/shaohanw
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 粒子背景 -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 70 },
+        color: { value: "#38bdf8" },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 130,
+          color: "#38bdf8",
+          opacity: 0.32
+        },
+        move: {
+          enable: true,
+          speed: 1.8
+        }
+      },
+      interactivity: {
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          }
+        },
+        modes: {
+          repulse: {
+            distance: 140
+          },
+          push: {
+            particles_nb: 5
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
