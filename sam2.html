@@ -469,10 +469,24 @@
         </p>
       </section>
     </div>
-
-    <div class="footer" data-i18n="footerText">
-      Built for project showcase and academic portfolio use.
-    </div>
+    <section class="card reveal full">
+      <h2 class="section-title" data-i18n="refTitle">参考文献</h2>
+      <ol class="ref-list">
+        <li data-i18n="ref1">
+          J. Ma, Y. He, F. Li, L. Han, C. You, and B. Wang,
+          "Segment anything in medical images,"
+          <em>Nature Communications</em>,
+          vol. 15, no. 1, Art. no. 654, Jan. 2024.
+          <a class="resource-link" href="https://doi.org/10.1038/s41467-024-44824-z" target="_blank">DOI</a>
+        </li>
+        <li data-i18n="ref2">
+          A. Kirillov et al.,
+          "Segment anything,"
+          arXiv:2304.02643, 2023.
+          <a class="resource-link" href="https://arxiv.org/abs/2304.02643" target="_blank">arXiv</a>
+        </li>
+      </ol>
+    </section>
   </div>
 
   <script>
@@ -518,6 +532,8 @@
         limitTitle: "局限性",
         limitText: "当前模型主要针对脑肿瘤分割，且仍需要人工标注一个初始切片作为提示输入。后续工作可以进一步提高可训练参数比例，并尝试使用更高分辨率的完整输入提升性能。",
         footerText: "Built for project showcase and academic portfolio use.",
+        ref1: 'J. Ma, Y. He, F. Li, L. Han, C. You, and B. Wang, "Segment anything in medical images," <em>Nature Communications</em>, vol. 15, no. 1, Art. no. 654, Jan. 2024. <a class="resource-link" href="https://doi.org/10.1038/s41467-024-44824-z" target="_blank">DOI</a>',
+        ref2: 'A. Kirillov et al., "Segment anything," arXiv:2304.02643, 2023. <a class="resource-link" href="https://arxiv.org/abs/2304.02643" target="_blank">arXiv</a>'
       },
       en: {
         title: "SAM2 Medical Segmentation",
@@ -560,6 +576,9 @@
         limitTitle: "Limitations",
         limitText: "The current model is specialized for brain tumor segmentation and still requires one manually labeled slice as the initial prompt. Future work may increase the proportion of trainable parameters and use higher-resolution full-size inputs for improved performance.",
         footerText: "Built for project showcase and academic portfolio use.",
+        refTitle: "References",
+        ref1: 'J. Ma, Y. He, F. Li, L. Han, C. You, and B. Wang, "Segment anything in medical images," <em>Nature Communications</em>, vol. 15, no. 1, Art. no. 654, Jan. 2024. <a class="resource-link" href="https://doi.org/10.1038/s41467-024-44824-z" target="_blank">DOI</a>',
+        ref2: 'A. Kirillov et al., "Segment anything," arXiv:2304.02643, 2023. <a class="resource-link" href="https://arxiv.org/abs/2304.02643" target="_blank">arXiv</a>'
       }
     };
 
