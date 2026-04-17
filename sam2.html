@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAM2 Medical Segmentation</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(125, 211, 252, 0.8);
+      border-radius: 10px;
+      color: #7dd3fc;
+      text-decoration: none;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .btn:hover {
+      background: rgba(125, 211, 252, 0.12);
+      text-decoration: none;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+      color: #bfdbfe;
+    }
+
+    p, li {
+      color: #dbeafe;
+      font-size: 1rem;
+    }
+
+    .subtitle {
+      color: #93c5fd;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 14px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #93c5fd;
+      font-size: 0.92rem;
+    }
+
+    .lang-block {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .lang-label {
+      font-size: 0.95rem;
+      color: #7dd3fc;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 14px;
+      margin-top: 12px;
+      background: #000;
+    }
+
+    a {
+      color: #7dd3fc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="btn" href="index.html">← Back</a>
+      <a class="btn" href="#zh">中文 / English</a>
+    </div>
+
+    <h1>SAM2 Medical Segmentation</h1>
+    <p class="subtitle">
+      LoRA-based fine-tuning of SAM2 for brain tumor segmentation on BraTS MRI slices
+    </p>
+
+    <section class="card">
+      <h2>Video Demo</h2>
+      <video controls>
+        <source src="sam2-demo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <p>Replace <code>sam2-demo.mp4</code> with your actual video file name.</p>
+    </section>
+
+    <section class="card">
+      <h2>Keywords / 关键词</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <div class="tags">
+          <span class="tag">SAM2</span>
+          <span class="tag">Medical Image Segmentation</span>
+          <span class="tag">Brain Tumor Segmentation</span>
+          <span class="tag">BraTS</span>
+          <span class="tag">MRI</span>
+          <span class="tag">FLAIR</span>
+          <span class="tag">LoRA Fine-Tuning</span>
+          <span class="tag">Pseudo-Video Inference</span>
+        </div>
+      </div>
+
+      <div class="lang-block" id="zh">
+        <div class="lang-label">中文</div>
+        <div class="tags">
+          <span class="tag">SAM2</span>
+          <span class="tag">医学图像分割</span>
+          <span class="tag">脑肿瘤分割</span>
+          <span class="tag">BraTS</span>
+          <span class="tag">MRI</span>
+          <span class="tag">FLAIR</span>
+          <span class="tag">LoRA微调</span>
+          <span class="tag">伪视频推理</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Overview / 项目简介</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p>
+          This project fine-tunes SAM2 with LoRA for brain tumor segmentation on BraTS MRI data.
+          The original 3D NIfTI volumes are sliced into 2D images along the z-axis, and FLAIR-based
+          inputs are used to adapt the model to medical segmentation tasks. During inference, a
+          pseudo-video bidirectional propagation strategy is applied to generate continuous segmentation
+          across the slice sequence.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">中文</div>
+        <p>
+          本项目基于 LoRA 对 SAM2 进行轻量化微调，用于 BraTS 脑肿瘤 MRI 数据分割。
+          原始三维 NIfTI 体数据沿 z 轴切分为二维图像，并采用基于 FLAIR 的输入形式
+          以适配医学图像分割任务。在推理阶段，使用伪视频双向传播策略，对切片序列进行连续分割。
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Pipeline / 流程</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <ul>
+          <li>Load BraTS 3D NIfTI MRI volumes with multi-modal scans.</li>
+          <li>Slice 3D volumes into 2D slices along the z-axis.</li>
+          <li>Construct model inputs from selected modalities and preprocess them into <code>.npz</code> files.</li>
+          <li>Apply LoRA to selected SAM2 Transformer layers for parameter-efficient fine-tuning.</li>
+          <li>Perform pseudo-video forward and backward propagation during inference.</li>
+        </ul>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">中文</div>
+        <ul>
+          <li>读取 BraTS 多模态三维 NIfTI MRI 数据。</li>
+          <li>沿 z 轴将三维体数据切分为二维切片。</li>
+          <li>构建模型输入，并保存为 <code>.npz</code> 预处理文件。</li>
+          <li>在 SAM2 的部分 Transformer 层中应用 LoRA，实现参数高效微调。</li>
+          <li>在推理阶段进行伪视频前向与后向传播。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Method Highlights / 方法亮点</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <ul>
+          <li>3D MRI volumes are converted into 2D slices because SAM2 is designed for 2D inputs.</li>
+          <li>Pre-slicing improves training efficiency and GPU utilization.</li>
+          <li>FLAIR is duplicated into 3 channels to match SAM2's input format while preserving tumor sensitivity.</li>
+          <li>LoRA rank 16 adapters are applied to attention and MLP layers, tuning only about 0.3% of parameters.</li>
+        </ul>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">中文</div>
+        <ul>
+          <li>由于 SAM2 面向二维输入，因此将三维 MRI 体数据转换为二维切片。</li>
+          <li>预切片策略提升了训练效率和 GPU 利用率。</li>
+          <li>将 FLAIR 单模态复制为三通道输入，以适配 SAM2 结构并保留肿瘤敏感性。</li>
+          <li>在注意力层和 MLP 层中引入秩为16的 LoRA 适配器，仅微调约0.3%的参数。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Results / 结果</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p>
+          Experiments showed that lower-resolution training significantly reduced training time,
+          while fine-tuning remained necessary for acceptable segmentation quality. Direct prediction
+          without fine-tuning led to unsatisfactory results.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">中文</div>
+        <p>
+          实验表明，低分辨率训练能够显著减少训练时间，但为了获得可接受的分割质量，
+          仍然需要进行微调。若不进行微调而直接预测，则结果不可接受。
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Report / 报告</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p>
+          Working draft in progress.
+          <a href="sam2-report.pdf" target="_blank">View current draft</a>
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">中文</div>
+        <p>
+          报告仍在完善中。
+          <a href="sam2-report.pdf" target="_blank">查看当前草稿</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Limitations / 局限性</h2>
+
+      <div class="lang-block">
+        <div class="lang-label">English</div>
+        <p>
+          The current model is specialized for brain tumor segmentation and still requires one
+          manually labeled slice as the initial prompt. Future work may increase the proportion
+          of trainable parameters and use higher-resolution full-size inputs for improved performance.
+        </p>
+      </div>
+
+      <div class="lang-block">
+        <div class="lang-label">中文</div>
+        <p>
+          当前模型主要针对脑肿瘤分割，且仍需要人工标注一个初始切片作为提示输入。
+          后续工作可以进一步提高可训练参数比例，并尝试使用更高分辨率的完整输入提升性能。
+        </p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
