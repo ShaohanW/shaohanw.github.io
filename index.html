@@ -52,6 +52,7 @@
       transition: all 0.2s ease;
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(6px);
+      cursor: pointer;
     }
 
     .lang-btn:hover {
@@ -182,40 +183,57 @@
 
   <main class="content">
     <div class="topbar">
-      <a class="lang-btn" href="index_cn.html">中文</a>
+      <button class="lang-btn" id="lang-toggle">中文</button>
     </div>
 
     <section class="hero">
       <h1>Shaohan Wang</h1>
-      <p class="subtitle">
+
+      <p class="subtitle i18n"
+         data-en="M.Eng. Student in Electrical &amp; Computer Engineering, University of Michigan"
+         data-zh="密歇根大学电气与计算机工程硕士生">
         M.Eng. Student in Electrical & Computer Engineering, University of Michigan
       </p>
-      <p class="hero-desc">
+
+      <p class="hero-desc i18n"
+         data-en="I am interested in control systems, robotics, and computer vision. This website showcases selected projects and research-related work."
+         data-zh="我的兴趣方向包括控制系统、机器人与计算机视觉。本网站展示了部分项目与研究相关工作。">
         I am interested in control systems, robotics, and computer vision.
         This website showcases selected projects and research-related work.
       </p>
     </section>
 
     <section>
-      <h2>Projects</h2>
+      <h2 class="i18n"
+          data-en="Projects"
+          data-zh="项目">
+        Projects
+      </h2>
+
       <div class="projects">
         <a class="card" href="sam2.html">
           <h3>SAM2 Medical Segmentation</h3>
-          <p>
+          <p class="i18n"
+             data-en="Fine-tuning SAM2 with LoRA (0.7% trainable parameters) for brain tumor segmentation on MRI slices."
+             data-zh="使用 LoRA 微调 SAM2（约 0.7% 可训练参数），用于 MRI 切片上的脑肿瘤分割。">
             Fine-tuning SAM2 with LoRA (0.7% trainable parameters) for brain tumor segmentation on MRI slices.
           </p>
         </a>
 
         <a class="card" href="inekf.html">
           <h3>InEKF Robot Estimation</h3>
-          <p>
+          <p class="i18n"
+             data-en="Using InEKF and foot-contact constraints to improve velocity estimation for legged robot motion."
+             data-zh="利用 InEKF 和足端接触约束，提高足式机器人运动中的速度估计性能。">
             Using InEKF and foot-contact constraints to improve velocity estimation for legged robot motion.
           </p>
         </a>
 
         <a class="card" href="acc.html">
           <h3>Adaptive Cruise Control in Embedded System</h3>
-          <p>
+          <p class="i18n"
+             data-en="Building an adaptive cruise control system in MATLAB/Simulink and deploying it to an NXP microcontroller for software-hardware co-simulation."
+             data-zh="基于 MATLAB/Simulink 构建自适应巡航控制系统，并部署到 NXP 微控制器上进行软硬件协同仿真。">
             Building an adaptive cruise control system in MATLAB/Simulink and deploying it to an NXP microcontroller for software-hardware co-simulation.
           </p>
         </a>
@@ -223,15 +241,29 @@
     </section>
 
     <section>
-      <h2>Contact</h2>
+      <h2 class="i18n"
+          data-en="Contact"
+          data-zh="联系方式">
+        Contact
+      </h2>
+
       <div class="contact-box">
         <div class="contact-row">
-          <span class="muted">Email:</span>
+          <span class="muted i18n"
+                data-en="Email:"
+                data-zh="邮箱：">
+            Email:
+          </span>
           <a href="mailto:shaohanw@umich.edu">shaohanw@umich.edu</a> (primary),
           <a href="mailto:shhan066@outlook.com">shhan066@outlook.com</a>
         </div>
+
         <div class="contact-row">
-          <span class="muted">GitHub:</span>
+          <span class="muted i18n"
+                data-en="GitHub:"
+                data-zh="GitHub：">
+            GitHub:
+          </span>
           <a href="https://github.com/shaohanw" target="_blank">github.com/shaohanw</a>
         </div>
       </div>
@@ -308,6 +340,30 @@
       },
       retina_detect: true
     });
+
+    const toggleBtn = document.getElementById("lang-toggle");
+    const i18nElements = document.querySelectorAll(".i18n");
+    let currentLang = localStorage.getItem("lang") || "en";
+
+    function setLanguage(lang) {
+      i18nElements.forEach(el => {
+        const text = el.getAttribute(`data-${lang}`);
+        if (text) {
+          el.innerHTML = text;
+        }
+      });
+
+      document.documentElement.lang = lang;
+      toggleBtn.textContent = lang === "en" ? "中文" : "EN";
+      localStorage.setItem("lang", lang);
+      currentLang = lang;
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      setLanguage(currentLang === "en" ? "zh" : "en");
+    });
+
+    setLanguage(currentLang);
   </script>
 </body>
 </html>
