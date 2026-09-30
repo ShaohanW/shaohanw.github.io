@@ -1,0 +1,9 @@
+*.pdf -text
+*.png -text
+*.jpg -text
+*.mp4 -text
+*.wasm -text
+*.bcmap -text
+*.pfb -text
+*.ttf -text
+*.icc -text
