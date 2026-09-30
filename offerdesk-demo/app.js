@@ -14,8 +14,8 @@ const localTimeValue = (value) => String(value||'').trim().replace(' ','T');
 const displayLocalTime = (value) => String(value||'').replace('T',' ');
 function validLocalTime(value){const normalized=localTimeValue(value),date=new Date(normalized);return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(normalized)&&Number.isFinite(date.getTime())&&localTime(date)===normalized;}
 function openNativePicker(picker){if(typeof picker.showPicker==='function')picker.showPicker();else{picker.focus();picker.click();}}
-const shortDate = (value) => new Date(value).toLocaleDateString('zh-CN',{month:'numeric',day:'numeric'});
-const clock = (value) => new Date(value).toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',hour12:false});
+const shortDate = (value) => new Date(value).toLocaleDateString(window.SudowI18n.locale,{month:'numeric',day:'numeric'});
+const clock = (value) => new Date(value).toLocaleTimeString(window.SudowI18n.locale,{hour:'2-digit',minute:'2-digit',hour12:false});
 function notify(message) { $('toast').textContent=message; $('toast').classList.remove('hidden'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),4200); }
 function setError(id, message) { $(id).textContent=message; $(id).classList.toggle('hidden',!message); }
 async function api(path, method='GET', body) { return demoApi(path, method, body); }
@@ -26,7 +26,7 @@ function normalizeJob(job){
   interviews.forEach((event,index)=>{event.round=event.round||index+1;event.result=event.result|| (event.completed?'passed':'waiting');event.completed=event.result==='passed';if(!event.url&&job.interviewUrl)event.url=job.interviewUrl;});
   return {...job,flowHistory:Array.isArray(job.flowHistory)?job.flowHistory:legacyHistory(job),createdAt:job.createdAt||'',offerAt:job.offerAt||'',closedAt:job.closedAt||'',assessmentUrl:job.assessmentUrl||'',interviewUrl:'',offerUrl:job.offerUrl||'',offerPdfId:job.offerPdfId||'',offerPdfName:job.offerPdfName||'',offerDecision:job.offerDecision||'pending',closedUrl:job.closedUrl||'',events};
 }
-async function load() { $('refresh').disabled=true; try { const data=await api('/api/jobs'); jobs=data.jobs.map(normalizeJob); loaded=true; render(); openIncomingResume(); setError('load-error',''); $('save-state').textContent='示例记录保存在当前浏览器 · '+clock(new Date())+' 更新'; } catch(e) { setError('load-error',e.message+'。可点击右侧刷新按钮重试。'); $('save-state').textContent='暂时未能读取记录'; } finally { $('refresh').disabled=false; } }
+async function load() { $('refresh').disabled=true; try { const data=await api('/api/jobs'); jobs=data.jobs.map(normalizeJob); loaded=true; render(); openIncomingResume(); setError('load-error',''); $('save-state').textContent='记录保存在当前浏览器 · '+clock(new Date())+' 更新'; } catch(e) { setError('load-error',e.message+'。可点击右侧刷新按钮重试。'); $('save-state').textContent='暂时未能读取记录'; } finally { $('refresh').disabled=false; } }
 function allEvents() { return jobs.flatMap(job=>job.events.filter(event=>event.start&&event.end).map(event=>({job,event}))).sort((a,b)=>new Date(a.event.start)-new Date(b.event.start)); }
 function render() {
   const now=Date.now(), events=allEvents(), pending=events.filter(x=>!x.event.completed);
@@ -104,7 +104,7 @@ function renderAgenda() {
     const interview=event.type==='interview',onsite=job.status==='interview'&&interview&&event.meetingMode==='onsite';
     const link=job.status==='interview'&&interview?(onsite?googleMapUrl(event):eventActionUrl(job,event)):job.status==='assessment'&&event.type==='assessment'?safeJobUrl(event.url):'';
     const state=interview?(event.completed?'已通过':'等待中'):(event.completed?'已完成':new Date(event.start)<Date.now()?'待处理':'');
-    return `<article class="agenda-row ${event.completed?'agenda-completed':''}"><div class="agenda-date">${shortDate(event.start)}<strong>${clock(event.start)}</strong></div><div class="agenda-info"><h3>${escape(job.company)} · ${escape(event.title)}</h3><p>${state?`<span class="status-label">${state}</span>`:''}${escape(job.role)}</p>${event.location?`<p>${escape(event.location)}</p>`:''}</div><div class="agenda-actions">${link?`<a href="${escape(link)}" target="_blank" rel="noopener noreferrer">${onsite?'打开地图':event.type==='assessment'?'进入 OA / 笔试':'进入面试'} ↗</a>`:''}<a href="${escape(googleUrl(job,event))}" target="_blank" rel="noopener noreferrer" aria-label="把${escape(event.title)}加入 Google 日历">Google ↗</a><button class="text-button" data-event-edit="${job.id}">编辑</button>${interview&&job.status==='interview'?`<button type="button" class="text-button blue" data-interview-result="${event.id}" data-job="${job.id}">${event.completed?'恢复等待':'标记通过'}</button>`:interview?'':`<label class="check-label"><input type="checkbox" data-complete="${event.id}" data-job="${job.id}" ${event.completed?'checked':''}>完成</label>`}</div></article>`;
+    return `<article class="agenda-row ${event.completed?'agenda-completed':''}"><div class="agenda-date">${shortDate(event.start)}<strong>${clock(event.start)}</strong></div><div class="agenda-info"><h3 data-user-content>${escape(job.company)} · ${escape(event.title)}</h3><p>${state?`<span class="status-label">${state}</span>`:''}<span data-user-content>${escape(job.role)}</span></p>${event.location?`<p data-user-content>${escape(event.location)}</p>`:''}</div><div class="agenda-actions">${link?`<a href="${escape(link)}" target="_blank" rel="noopener noreferrer">${onsite?'打开地图':event.type==='assessment'?'进入 OA / 笔试':'进入面试'} ↗</a>`:''}<a href="${escape(googleUrl(job,event))}" target="_blank" rel="noopener noreferrer" aria-label="把${escape(event.title)}加入 Google 日历">Google ↗</a><button class="text-button" data-event-edit="${job.id}">编辑</button>${interview&&job.status==='interview'?`<button type="button" class="text-button blue" data-interview-result="${event.id}" data-job="${job.id}">${event.completed?'恢复等待':'标记通过'}</button>`:interview?'':`<label class="check-label"><input type="checkbox" data-complete="${event.id}" data-job="${job.id}" ${event.completed?'checked':''}>完成</label>`}</div></article>`;
   }).join(''):'<div class="empty-agenda"><div class="empty-symbol">＋</div><strong>给下一步留个时间</strong><p>未排时间的面试仍会留在岗位详情；确定时间后再加入日历。</p></div>';
 }
 function switchTab(name, focus=false) { ['board','agenda'].forEach(n=>{const active=n===name; $('tab-'+n).classList.toggle('active',active);$('tab-'+n).setAttribute('aria-selected',String(active));$('tab-'+n).tabIndex=active?0:-1;$(n).classList.toggle('hidden',!active);}); if(focus)$('tab-'+name).focus(); }
@@ -330,11 +330,10 @@ window.addEventListener('beforeunload',e=>{if($('job-dialog').open&&formSnapshot
 render();
 (async()=>{try{const session=await api('/api/session');$('app-version').textContent='v'+session.version;$('logout').classList.toggle('hidden',!session.passwordProtected);if(session.authenticated)await load();else showLogin();}catch(e){setError('load-error','暂时无法连接服务器，请确认服务已启动并刷新页面。');}})();
 
-$("latex-link").href="../offerdesk.html#screenshots";$("latex-link").textContent="PDF 编辑界面展示 ↗";
-function openMapPicker(){notify("静态演示不提供地图服务，可手动填写地点。");}
+$("latex-link").href="../paperdesk-demo/";
 
 function resumeEditorUrl(id) {
-  const url=new URL(location.href);url.port='8766';url.pathname='/';url.search='';url.hash='';
+  const url=new URL('../paperdesk-demo/',location.href);
   if(id)url.searchParams.set('doc',id);return url.href;
 }
 function renderResumeOptions(selected) {
@@ -348,7 +347,7 @@ function updateResumeActions() {
   const id=$('resumeDocId').value, doc=resumes.find(d=>d.id===id);
   $('resume-edit').classList.toggle('hidden',!id);$('resume-edit').href=resumeEditorUrl(id);
   $('resume-pdf').classList.toggle('hidden',!doc?.pdfReady);
-  $('resume-hint').textContent='静态演示不连接简历库；PDF 编辑入口可查看原应用界面，LaTeX 编译需要后端。';
+  $('resume-hint').textContent=!id?'关联后可一键编辑和下载。多个岗位关联同一文档时，会共用修改。':!doc?'文档尚未加载或已不存在，请刷新确认。':doc.pdfReady?`PDF 已与源码同步。最后修改：${new Date(doc.updated).toLocaleString('zh-CN')}。未指定 PDF 时，保存岗位会独立保留最新编译 PDF。`:`最后修改：${new Date(doc.updated).toLocaleString('zh-CN')}。请打开编辑器编译当前源码。`;
 }
 async function refreshResumes() {
   const request=++resumeRequest;$('resume-refresh').disabled=true;
@@ -359,7 +358,7 @@ async function refreshResumes() {
 function openIncomingResume() {
   if(incomingResumeHandled)return;incomingResumeHandled=true;
   const id=new URL(location.href).searchParams.get('resume');if(!id)return;
-  if(!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id))return notify('简历链接无效');
+  if(id!=='sample-resume'&&!/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id))return notify('简历链接无效');
   openEditor();editing.resumeDocId=id;renderResumeOptions(id);initialForm=formSnapshot();
   const url=new URL(location.href);url.searchParams.delete('resume');history.replaceState(null,'',url);
 }
@@ -368,7 +367,7 @@ $('resume-refresh').addEventListener('click',refreshResumes);
 $('resume-pdf').addEventListener('click',async()=>{
   const id=$('resumeDocId').value;$('resume-pdf').disabled=true;
   try{
-    const response=await fetch('/api/resumes/'+encodeURIComponent(id)+'/pdf');
+    const response=await fetch('../paperdesk-demo/sample.pdf');
     if(!response.ok){const body=await response.json();throw new Error(body.error||'下载失败');}
     const blob=await response.blob(),url=URL.createObjectURL(blob),a=document.createElement('a');
     const doc=resumes.find(d=>d.id===id),version=response.headers.get('X-Document-Revision');
@@ -401,7 +400,7 @@ $('offer-pdf-file').addEventListener('change',async()=>{
 });
 window.addEventListener('focus',()=>{if(loaded&&!busy&&!$('job-dialog').open)load();});
 function renderPdfOptions(selected){
-  $('resumeFileId').innerHTML='<option value="">静态演示不关联 PDF</option>';
+  $('resumeFileId').innerHTML='<option value="">默认：最新 LaTeX 编译 PDF（如有）</option>'+uploadedPdfs.map(f=>`<option value="${escape(f.id)}">${escape(f.name)} · ${Math.ceil(f.size/1024)} KB</option>`).join('');
   if(selected&&!uploadedPdfs.some(f=>f.id===selected)){const option=document.createElement('option');option.value=selected;option.textContent='已关联 PDF（等待刷新确认）';$('resumeFileId').append(option);}
   $('resumeFileId').value=selected;updatePdfActions();
 }
@@ -409,7 +408,7 @@ function updatePdfActions(){
   const id=$('resumeFileId').value,file=uploadedPdfs.find(f=>f.id===id);
   $('pdf-library-download').classList.toggle('hidden',!id);
   if(id)$('pdf-library-download').href='/api/resume-files/'+encodeURIComponent(id)+'/pdf';
-  $('pdf-library-hint').textContent='文件上传与文档存储需要后端；静态演示不会上传文件。';
+  $('pdf-library-hint').textContent=file?'已选择 '+file.name+'。保存岗位后关联这份 PDF；后续修改 LaTeX 不会改变它。':id?'已关联 PDF，可刷新列表查看文件名。':'未指定文件时，保存岗位会采用所选分支最新成功编译的 PDF。也可上传指定文件（最大 5 MB）。';
 }
 async function refreshPdfLibrary(){
   const request=++pdfRequest;$('pdf-refresh').disabled=true;
@@ -433,5 +432,5 @@ $('pdf-file').addEventListener('change',async()=>{
   finally{editorBusy(false);$('pdf-upload').disabled=false;}
 });
 
-$('reset-demo').onclick=()=>{askConfirm('重置示例？','这会恢复虚构示例并清除本浏览器内的演示修改。',()=>{localStorage.removeItem('portfolio-offerdesk-demo-v1');location.reload();},'重置');};
-$('download-ics').addEventListener('click',e=>{e.preventDefault();const entries=allEvents().filter(x=>!x.event.completed);if(!entries.length)return;const stamp=v=>new Date(v).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');const clean=v=>String(v).replace(/[\r\n]/g,' ').replace(/[,;\\]/g,' ');const data=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//OfferDesk//Static Demo//EN',...entries.flatMap(({job,event})=>['BEGIN:VEVENT','UID:'+event.id+'@offerdesk-demo','DTSTAMP:'+stamp(new Date()),'DTSTART:'+stamp(event.start),'DTEND:'+stamp(event.end),'SUMMARY:'+clean(job.company+' '+event.title),'END:VEVENT']),'END:VCALENDAR'].join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'text/calendar'}));a.download='offer-desk-demo.ics';a.click();});
+function openMapPicker(){backendRequired("地图服务");}
+$('download-ics').addEventListener('click',e=>{e.preventDefault();backendRequired('日历服务');});

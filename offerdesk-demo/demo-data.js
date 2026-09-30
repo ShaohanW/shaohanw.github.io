@@ -1,5 +1,10 @@
 'use strict';
 const demoKey = 'portfolio-offerdesk-demo-v1';
+function backendRequired(feature='此操作') {
+  const message=document.documentElement.lang.startsWith('en') ? `${feature} requires the local backend. No request was sent.` : `${feature}需要连接本地后端，当前未执行该操作。`;
+  window.alert(message);
+  return message;
+}
 const demoSeed = () => ['saved','applied','applied','assessment','interview','offer','closed'].map((status,i) => ({
   id:'demo-'+i,revision:1,company:'示例公司 '+String.fromCharCode(65+i),
   role:['Embedded AI Engineer','Software Engineer','Linux Driver Engineer','Robotics Software Engineer','Embedded Software Engineer','Computer Vision Engineer','Control Systems Engineer'][i],
@@ -10,7 +15,7 @@ const demoSeed = () => ['saved','applied','applied','assessment','interview','of
 let demoRecords;
 try { demoRecords=JSON.parse(localStorage.getItem(demoKey)) || demoSeed(); } catch { demoRecords=demoSeed(); }
 async function demoApi(path, method='GET', body) {
-  if(path==='/api/session') return {authenticated:true,passwordProtected:false,version:'static-demo'};
+  if(path==='/api/session') return {authenticated:true,passwordProtected:false,version:'0.5.4'};
   if(path==='/api/jobs') {
     if(method==='GET') return {jobs:structuredClone(demoRecords)};
     const previous=demoRecords.find(j=>j.id===body.id);
@@ -21,8 +26,13 @@ async function demoApi(path, method='GET', body) {
     demoRecords=updated;
     return {job:structuredClone(next)};
   }
-  if(path==='/api/resumes') return {docs:[]};
+  if(path==='/api/resumes') {
+    let documents=[];
+    try { documents=JSON.parse(localStorage.getItem('portfolio-paperdesk-v1'))?.docs||[]; } catch {}
+    return {docs:documents.length?documents.map(d=>({...d,pdfRunId:d.id==='sample-resume'?'sample':null})): [{id:'sample-resume',title:'示例简历 · Alex Demo',revision:1,pdfReady:true,pdfRunId:'sample'}]};
+  }
   if(path==='/api/resume-files' && method==='GET') return {files:[]};
-  if(path==='/api/ai') return {runtimeReady:false,models:[{id:'demo',name:'本地 GGUF 模型（需后端）',installed:false}],defaultModel:'demo',tasks:[]};
-  throw new Error('此功能需要本地后端；静态演示不会上传文件或运行 AI。');
+  if(path==='/api/ai') return {runtimeReady:false,models:[{id:'1.5b',name:'Qwen2.5-1.5B-Instruct · Q4_K_M'},{id:'1.5b-q3',name:'Qwen2.5-1.5B-Instruct · Q3_K_M'},{id:'0.5b',name:'Qwen2.5-0.5B-Instruct · Q4_K_M'},{id:'2b',name:'Qwen3.5-2B · 指令对话 · Q4_K_M'}],defaultModel:'1.5b',tasks:[]};
+  backendRequired(path.startsWith('/api/ai')?'AI 分析':'文件服务');
+  throw new Error('');
 }

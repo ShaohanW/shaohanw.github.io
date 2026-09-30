@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>素材与模板 · Paper Desk</title><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="modules.css"><script src="messages.js?v=0.5.4" defer></script><script src="i18n.js?v=0.5.4" defer></script><script src="demo-data.js?v=054" defer></script><script src="modules.js?v=054" defer></script><link rel="stylesheet" href="i18n.css?v=0.5.4"></head><body>
+<header><a href="./">P · Paper Desk</a><span>素材与模板</span><a href="/api/modules/backup" download>备份素材库 ↓</a><a href="./">返回编辑器 ↗</a></header>
+<main><h1>填一次，组合成不同的简历。</h1><p class="muted">素材负责内容，模板负责排版。生成独立文档后，可继续自由编辑 LaTeX。</p>
+<div id="message" role="status"></div><form id="login" hidden><label>访问密码<input type="password" id="password" required autocomplete="current-password"></label><button>登录</button></form>
+<section id="workspace" hidden><nav aria-label="模块类型"><button data-tab="material">① 素材库</button><button data-tab="template">② 模板</button><button data-tab="composition">③ 简历组合</button></nav>
+<div class="layout"><aside><button id="new">＋ 新建</button><label>已保存内容 / 历史版本<select id="records" size="14" aria-label="已保存版本"></select></label><p class="muted">每次保存新版本，旧版本仍可选。引用固定版本，不会自动替换。</p></aside><section class="editor"><div class="row"><label class="grow">名称<input id="title" maxlength="120" required></label><span id="version" class="muted"></span></div>
+<div id="fields"></div><div class="actions"><button id="save" class="primary">保存版本</button><button id="copy">另存为副本</button><button id="preview" hidden>预览生成源码</button><button id="generate" hidden class="primary">生成独立简历 →</button></div><p id="saved" class="muted"></p>
+<details id="source-panel" hidden><summary>生成的 LaTeX 源码</summary><textarea id="source" readonly spellcheck="false"></textarea></details>
+<div id="generated" hidden><strong>已生成，可继续调整排版与编译。</strong><a id="open-generated">打开 LaTeX 编辑器 ↗</a></div>
+</section></div></section></main></body></html>

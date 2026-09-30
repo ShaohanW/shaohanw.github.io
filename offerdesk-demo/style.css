@@ -101,3 +101,27 @@ html,body{height:100%;overflow:hidden}body{display:flex;flex-direction:column}.t
 
 /* Local assistant keeps scrolling inside its dialog, never on the board. */
 .ai-dialog{width:min(1180px,96vw);max-height:92dvh}.ai-layout{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(340px,1.15fr);gap:28px;overflow:auto}.ai-compose,.ai-detail{min-width:0}.ai-task{display:block;width:100%;text-align:left;border:1px solid var(--line,#dce5eb);border-radius:10px;background:transparent;padding:12px;margin:7px 0;color:inherit}.ai-task.active{background:#edf4ff;border-color:#aac4ef}.ai-proposal,.ai-matches article{border:1px solid #dce5eb;border-radius:14px;padding:16px;margin:16px 0}.ai-proposal legend{padding:0 6px}.ai-proposal input[type=checkbox]{width:auto}.ai-evidence,.ai-matches p{font-size:13px;color:#61738a;overflow-wrap:anywhere}.ai-proposal textarea{margin-top:8px}.ai-score{display:flex;align-items:baseline;gap:14px;margin:18px 0}.ai-score strong{font-size:42px;color:#3269c2}.ai-score small{font-size:20px}.ai-badge{display:inline-block;margin-left:8px;font-size:12px;color:#3269c2}.ai-original{white-space:pre-wrap;overflow-wrap:anywhere;max-height:340px;overflow:auto;font:inherit;font-size:13px}.ai-detail details{margin-top:20px}.ai-detail #ai-status{position:sticky;top:0;background:#fff;padding:10px 0;z-index:1}@media(max-width:760px){.ai-layout{grid-template-columns:1fr}.ai-dialog{max-height:96dvh}}
+
+/* Fixed input and independent history/result panes. */
+body:has(.ai-dialog[open]){overflow:hidden}
+.ai-dialog{height:min(920px,94dvh);max-height:94dvh;overflow:hidden}
+.ai-dialog[open]{display:flex;flex-direction:column}
+.ai-dialog .modal-header{flex:0 0 auto;padding:18px 22px;gap:12px}
+.ai-header-actions{display:flex;align-items:center;gap:16px}
+.ai-header-actions .check-label{white-space:nowrap;font-size:12px}.ai-header-actions input{width:auto}
+.ai-layout{flex:1;min-height:0;overflow:hidden;padding:20px 22px;gap:24px;grid-template-columns:minmax(310px,.9fr) minmax(340px,1.1fr)}
+.ai-compose{display:grid;grid-template-rows:auto minmax(90px,1fr);min-height:0;gap:14px}
+.ai-input .form-grid{gap:10px 12px}.ai-input label{font-size:13px}.ai-input input:not([type=checkbox]),.ai-input textarea,.ai-input select{font-size:14px;padding:7px 9px}
+.ai-input textarea{min-height:90px;max-height:180px;resize:none}.ai-input .field-hint{margin:8px 0}.ai-input .form-error:empty{display:none}
+.ai-history{min-height:0;display:flex;flex-direction:column;border-top:1px solid var(--line);padding-top:10px}
+.ai-history>.section-heading{flex:none;margin:0 0 6px}.ai-history h3{font-size:15px;margin:0}
+#ai-tasks{min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:4px}
+.ai-task-row{display:flex;align-items:center;gap:8px;margin:7px 0}.ai-task{flex:1;min-width:0;margin:0;font-size:13px;padding:10px;overflow-wrap:anywhere}.ai-delete{flex:none;font-size:12px;padding:8px 4px}
+.ai-detail{display:grid;grid-template-rows:auto minmax(0,1fr);min-height:0;overflow:hidden}
+.ai-detail #ai-status{position:static;flex:none;padding:0 0 12px;line-height:1.5;font-size:13px;color:var(--muted)}
+#ai-result{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:6px}
+.ai-dev-only{display:none!important}.developer-mode .ai-dev-only{display:block!important}
+.ai-create-card{border-top:1px solid var(--line);margin-top:20px;padding-top:14px}.ai-create-card h3{font-size:16px}.ai-create-card .form-grid{gap:12px}.ai-create-card>button{margin:6px 0 16px}
+.ai-mobile-tabs{display:none}
+@media(max-width:760px){.ai-dialog .modal-header{padding:14px 16px}.ai-dialog h2{font-size:19px}.ai-dialog .eyebrow{display:none}.ai-header-actions{gap:8px}.ai-mobile-tabs{display:flex;flex:none;gap:6px;padding:0 16px 10px;border-bottom:1px solid var(--line)}.ai-mobile-tabs button{border:0;border-radius:6px;background:transparent;color:#637892;padding:7px 10px;font-size:13px}.ai-mobile-tabs button[aria-current=page]{background:#edf4ff;color:#245de8}.ai-layout{display:flex;padding:16px;gap:0}.ai-compose,.ai-detail{flex:1}.ai-compose{display:flex;flex-direction:column}.ai-input{flex:none}.ai-history{flex:1}.ai-dialog[data-panel=compose] .ai-history,.ai-dialog[data-panel=compose] .ai-detail,.ai-dialog[data-panel=history] .ai-input,.ai-dialog[data-panel=history] .ai-detail,.ai-dialog[data-panel=result] .ai-compose{display:none}.ai-dialog[data-panel=history] .ai-history{border:0;padding:0}.ai-dialog[data-panel=result] .ai-detail{display:grid}}
+@media(max-height:720px){.ai-dialog .modal-header{padding-top:10px;padding-bottom:10px}.ai-layout{padding-top:12px;padding-bottom:12px}.ai-input .form-grid{gap:7px 10px}.ai-input textarea{height:75px;min-height:75px}.ai-input .field-hint{font-size:12px;margin:4px 0}.ai-compose{gap:8px}.ai-input input:not([type=checkbox]),.ai-input select{padding-top:5px;padding-bottom:5px}.ai-input .primary{min-height:34px;padding:6px 12px}}
