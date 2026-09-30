@@ -7,15 +7,15 @@
 
   <style>
     :root {
-      --bg: #0b1120;
-      --bg2: #111827;
+      --bg: #070b14;
+      --bg2: #0d1422;
       --card: rgba(255,255,255,0.06);
       --card-border: rgba(255,255,255,0.12);
       --text: #e5f0ff;
       --muted: #9fb3d9;
-      --accent: #7dd3fc;
-      --accent-2: #a78bfa;
-      --accent-3: #38bdf8;
+      --accent: #c7f36b;
+      --accent-2: #6ed2ff;
+      --accent-3: #ff7f64;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
       --radius: 20px;
     }
@@ -30,7 +30,7 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at 20% 20%, rgba(56,189,248,0.10), transparent 28%),
@@ -465,8 +465,7 @@
       <section class="card reveal">
         <h2 class="section-title" data-i18n="reportTitle">报告</h2>
         <p data-i18n="reportText">
-          报告仍在完善中。你可以在此查看当前草稿：
-          <a class="resource-link" href="sam2-report.pdf" target="_blank" data-i18n="reportLink">查看当前草稿</a>
+          报告仍在完善中，完成后会在这里更新。
         </p>
       </section>
 
@@ -536,7 +535,7 @@
         resultsTitle: "结果",
         resultsText: "实验表明，低分辨率训练能够显著减少训练时间，但为了获得可接受的分割质量，仍然需要进行微调。若不进行微调而直接预测，则结果不可接受。",
         reportTitle: "报告",
-        reportText: '报告仍在完善中。你可以在此查看当前草稿： <a class="resource-link" href="sam2-report.pdf" target="_blank">查看当前草稿</a>',
+        reportText: "报告仍在完善中，完成后会在这里更新。",
         limitTitle: "局限性",
         limitText: "当前模型主要针对脑肿瘤分割，且仍需要人工标注一个初始切片作为提示输入。后续工作可以进一步提高可训练参数比例，并尝试使用更高分辨率的完整输入提升性能。",
         footerText: "Built for project showcase and academic portfolio use.",
@@ -580,7 +579,7 @@
         resultsTitle: "Results",
         resultsText: "Experiments showed that lower-resolution training significantly reduced training time, while fine-tuning remained necessary for acceptable segmentation quality. Direct prediction without fine-tuning led to unsatisfactory results.",
         reportTitle: "Report",
-        reportText: 'The report is still in progress. You can view the current draft here: <a class="resource-link" href="sam2-report.pdf" target="_blank">View current draft</a>',
+        reportText: "The report is still in progress and will be added here when ready.",
         limitTitle: "Limitations",
         limitText: "The current model is specialized for brain tumor segmentation and still requires one manually labeled slice as the initial prompt. Future work may increase the proportion of trainable parameters and use higher-resolution full-size inputs for improved performance.",
         footerText: "Built for project showcase and academic portfolio use.",
