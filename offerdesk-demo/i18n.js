@@ -44,9 +44,24 @@
   let observer;
   function listen(){observer.observe(document.documentElement,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['title','aria-label','placeholder','alt','open']});}
   function placeSwitcher(){
-    const dialog=[...document.querySelectorAll('dialog[open]')].at(-1),header=dialog?.querySelector('.ai-header-actions,.modal-header,.history-heading');
-    const target=header||dialog?.querySelector('form')||dialog||host;
-    if(target&&switcher.parentElement!==target){if(dialog&&!header)target.prepend(switcher);else target.append(switcher);}
+    const dialog=[...document.querySelectorAll('dialog[open]')].at(-1);
+    let target=host;
+    if(dialog){
+      target=dialog.querySelector('.dialog-language-slot');
+      if(!target){
+        // Dedicated row keeps the title and original close button in place.
+        const row=document.createElement('div');row.className='dialog-preferences';
+        target=document.createElement('div');target.className='dialog-language-slot';row.append(target);
+        const header=dialog.querySelector('.modal-header,.history-heading');
+        if(header)header.after(row);
+        else{
+          row.classList.add('standalone-preferences');
+          const body=dialog.querySelector('.modal-body')||dialog.querySelector('form')||dialog;
+          body.prepend(row);
+        }
+      }
+    }
+    if(target&&switcher.parentElement!==target)target.append(switcher);
   }
   function refresh(root=document.documentElement){observer?.disconnect();placeSwitcher();visit(root);document.documentElement.lang=language;document.title=remember(document.head,'pageTitle',document.title);listen();}
   observer=new MutationObserver(records=>{
@@ -57,7 +72,7 @@
   });
   const switcher=document.createElement('select');switcher.id='language-switch';switcher.className='language-switch';switcher.setAttribute('aria-label','界面语言');switcher.innerHTML='<option value="zh-CN">中文</option><option value="en">English</option>';switcher.value=language;
   switcher.addEventListener('change',()=>{language=switcher.value;document.cookie='sudow_language='+language+'; Path=/; Max-Age=31536000; SameSite=Lax';refresh();window.dispatchEvent(new CustomEvent('sudow-language-change',{detail:{language}}));});
-  const host=document.querySelector('.top-right,body>header nav,body>header');host?.append(switcher);
+  const host=document.querySelector('.top-right')||document.querySelector('body>header');host?.append(switcher);
   const originalConfirm=window.confirm.bind(window),originalAlert=window.alert.bind(window);
   window.confirm=value=>originalConfirm(translate(value));window.alert=value=>originalAlert(translate(value));
   window.SudowI18n={translate,refresh,get language(){return language;},get locale(){return language==='en'?'en-US':'zh-CN';}};

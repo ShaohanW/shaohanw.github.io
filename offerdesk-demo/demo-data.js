@@ -15,7 +15,7 @@ const demoSeed = () => ['saved','applied','applied','assessment','interview','of
 let demoRecords;
 try { demoRecords=JSON.parse(localStorage.getItem(demoKey)) || demoSeed(); } catch { demoRecords=demoSeed(); }
 async function demoApi(path, method='GET', body) {
-  if(path==='/api/session') return {authenticated:true,passwordProtected:false,version:'0.5.4'};
+  if(path==='/api/session') return {authenticated:true,passwordProtected:false,version:'0.5.5'};
   if(path==='/api/jobs') {
     if(method==='GET') return {jobs:structuredClone(demoRecords)};
     const previous=demoRecords.find(j=>j.id===body.id);

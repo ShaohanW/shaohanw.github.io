@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="管理投递、面试与跟进，把重要安排加入 Apple 和 Google 日历。"><title>Offer Desk · 我的投递</title><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css"><script src="messages.js?v=0.5.4" defer></script><script src="i18n.js?v=0.5.4" defer></script><script src="demo-data.js?v=054" defer></script><script src="app.js?v=054" defer></script><script src="ai.js" defer></script><link rel="stylesheet" href="i18n.css?v=0.5.4"></head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="管理投递、面试与跟进，把重要安排加入 Apple 和 Google 日历。"><title>Offer Desk · 我的投递</title><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="style.css?v=055"><script src="messages.js?v=055" defer></script><script src="i18n.js?v=055" defer></script><script src="demo-data.js?v=055" defer></script><script src="app.js?v=055" defer></script><script src="ai.js?v=055" defer></script><link rel="stylesheet" href="i18n.css?v=055"></head>
 <body>
 <header class="topbar"><a class="brand" href="../offerdesk.html"><img src="favicon.svg" alt="" width="36" height="36">Offer Desk</a><div class="top-right"><a id="latex-link" class="private-label">LaTeX 简历 ↗</a><button id="logout" class="text-button hidden">退出</button></div></header>
 <main class="workspace" id="workspace">
@@ -9,7 +9,7 @@
 <div class="workspace-tools"><div class="tabs" role="tablist" aria-label="查看方式"><button id="tab-board" class="tab active" role="tab" aria-selected="true" aria-controls="board" tabindex="0">投递看板</button><button id="tab-agenda" class="tab" role="tab" aria-selected="false" aria-controls="agenda" tabindex="-1">日程与提醒<span id="agenda-count" class="tab-count">0</span></button></div><div class="tool-actions"><button class="secondary small" id="calendar-help">导出日历</button><button class="text-button" id="backup">备份记录</button><button class="icon-button" id="refresh" aria-label="刷新记录" title="刷新记录">↻</button></div></div>
 <div class="board" id="board" role="tabpanel" aria-labelledby="tab-board"></div>
 <section class="agenda hidden" id="agenda" role="tabpanel" aria-labelledby="tab-agenda"><div class="agenda-top"><div><h2>接下来的安排</h2><p id="timezone-note"></p></div><label class="check-label"><input type="checkbox" id="show-completed">显示已完成</label></div><div id="agenda-list"></div></section>
-<footer class="desk-footer"><span id="save-state">正在连接…</span><span>Apple Calendar · Google Calendar · <span id="app-version">v0.5.4</span></span></footer>
+<footer class="desk-footer"><span id="save-state">正在连接…</span><span>Apple Calendar · Google Calendar · <span id="app-version">v0.5.5</span></span></footer>
 </main>
 <dialog id="job-dialog" class="modal"><form id="job-form">
 <header class="modal-header"><div><p class="eyebrow">OPPORTUNITY</p><h2 id="editor-title">添加岗位</h2></div><button type="button" class="icon-button close-editor" aria-label="关闭编辑窗口">×</button></header>

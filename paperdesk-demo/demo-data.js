@@ -35,7 +35,7 @@ async function paperApi(path,method='GET',data) {
     const record={...data,revision:(data.revision||0)+1,created:new Date().toISOString()};
     paperStore.modules||=[];paperStore.modules.unshift(record);savePaper();return {record:paperCopy(record)};
   }
-  if(path==='/api/session')return {authenticated:true,passwordProtected:false,version:'0.5.4'};
+  if(path==='/api/session')return {authenticated:true,passwordProtected:false,version:'0.5.5'};
   if(path==='/api/capabilities')return {canCompile:false,message:''};
   if(path==='/api/docs') {
     if(method==='GET')return {docs:paperCopy(paperStore.docs)};
