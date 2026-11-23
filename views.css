@@ -1,0 +1,88 @@
+/* Both entry pages and the project pages use the same version switch. */
+.edition-switch {
+  display: inline-flex;
+  align-items: stretch;
+  align-self: center;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  line-height: 1.25;
+}
+.edition-switch a, .navlinks .edition-switch a {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  min-height: 29px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.edition-switch a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.edition-switch a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.edition-switch a:focus-visible { position: relative; outline: 2px solid var(--ink); outline-offset: 2px; }
+.navlinks { align-items: center; }
+
+:root[data-view="minimal"] {
+  color-scheme: light;
+  --paper: #f7f4ec; --ink: #282722; --muted: #625e54; --line: #cfc9bb;
+  --win: #77551e; --accent: #a77d36; --swatch: #e5d8c5;
+  --bg: var(--paper); --white: var(--paper); --text: var(--ink); --panel: var(--paper);
+  --blue: var(--ink); --strip: var(--paper); --tag-bg: var(--paper);
+}
+:root[data-view="minimal"][data-palette="midnight"] {
+  color-scheme: dark;
+  --paper: #19232f; --ink: #f2f0e9; --muted: #b5c1cf; --line: #455360;
+  --win: #f0cb85; --accent: #d0a257; --swatch: #344a60;
+}
+:root[data-view="minimal"][data-palette="sage"] {
+  --paper: #e6ecdf; --ink: #26332a; --muted: #526051; --line: #b5c1ae;
+  --win: #475e32; --accent: #738660; --swatch: #9bad91;
+}
+
+/* The case content stays in one HTML file when the reader switches versions. */
+[data-page="project"][data-view="minimal"] body { background: var(--paper); color: var(--ink); }
+[data-page="project"][data-view="minimal"] :is(.wrap, .shell) { max-width: 960px; }
+[data-page="project"][data-view="minimal"] :is(.mast, .site-header, .intro, .hero, .foot, .footer) {
+  background: var(--paper);
+  border-color: var(--line);
+  border-width: 1px;
+  box-shadow: none;
+}
+[data-page="project"][data-view="minimal"] :is(.case-hero h1, .hero h1, .section-heading h2, .case-section h2) {
+  font-family: Baskervville, Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: -.035em;
+  color: var(--ink);
+}
+[data-page="project"][data-view="minimal"] .brand::before,
+[data-page="project"][data-view="minimal"] .wordmark img { display: none; }
+[data-page="project"][data-view="minimal"] :is(.action, .button, .language, .lang-toggle, .panel, .member, .metric, .tag, .table-wrap, .window, .demo, .results-image, .screenshot-card) {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+[data-page="project"][data-view="minimal"] :is(.button, .action):hover { transform: none; text-decoration: underline; }
+[data-page="project"][data-view="minimal"] .kind.awarded {
+  background: transparent;
+  border-left: 3px solid var(--accent);
+  color: var(--win);
+}
+[data-page="project"][data-view="minimal"] .case-img { display: none; }
+[data-page="project"][data-view="minimal"] .case-hero { grid-template-columns: minmax(0, 820px); }
+@media (max-width: 850px) {
+  .bar .navlinks { flex-wrap: wrap; }
+  .site-header .nav, .site-header .nav-actions { flex-wrap: wrap; }
+}
+@media (max-width: 540px) {
+  .site-header .nav { gap: 4px 12px; padding-block: 7px; }
+  .site-header .nav-actions { gap: 7px; margin-left: auto; }
+  .bar .navlinks { justify-content: flex-start; gap: 2px 14px; padding-block: 3px; }
+  .edition-switch a, .navlinks .edition-switch a { padding-inline: 6px; }
+}

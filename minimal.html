@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-view="minimal" data-page="home" data-palette="starlight">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Shaohan Wang’s engineering projects at the University of Michigan. KAI, Unitree Go2 state estimation, and SAM2 brain MRI segmentation.">
+  <title data-en="Shaohan Wang — Projects" data-zh="Shaohan Wang · 项目">Shaohan Wang — Projects</title>
+  <link rel="icon" href="pixel/chip.png">
+  <link rel="stylesheet" href="minimal.css">
+  <script src="project.js" defer></script>
+  <link rel="stylesheet" href="views.css">
+<script src="views.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#projects"><span lang="en">Skip to projects</span><span lang="zh-CN">跳到项目</span></a>
+  <header>
+    <a class="mark" href="#top" aria-label="Shaohan Wang">SW</a>
+    <nav><a href="#projects"><span lang="en">Projects</span><span lang="zh-CN">项目</span></a><a href="#experience"><span lang="en">Experience</span><span lang="zh-CN">经历</span></a><span class="edition-switch" role="group" aria-label="Site version / 网站版本"><a data-edition="full" href="index.html"><span data-en="Full" data-zh="普通版">Full</span></a><a data-edition="minimal" href="minimal.html" aria-current="page"><span data-en="Minimal" data-zh="极简版">Minimal</span></a></span></nav>
+    <div class="tools"><button id="lang-toggle" type="button" aria-label="切换到中文">中文</button></div>
+  </header>
+  <main id="main">
+    <div class="hero" id="about">
+      <h1>Shaohan Wang</h1>
+      <p class="meta"><span><span lang="en">University of Michigan</span><span lang="zh-CN">密歇根大学</span></span><span><span lang="en">M.Eng. candidate in Electrical and Computer Engineering</span><span lang="zh-CN">电气与计算机工程硕士在读</span></span></p>
+    </div>
+    <section id="projects" aria-labelledby="projects-title">
+      <h2 class="section-title" id="projects-title"><span lang="en">Selected projects</span><span lang="zh-CN">主要项目</span></h2>
+      <article class="row project" id="kai">
+        <div><h3><a href="kai.html?view=minimal">KAI</a></h3><p class="sub">Kitchen AI</p></div>
+        <div>
+          <p class="award"><span lang="en">Overall 1st Place · Hack The Nest 2026</span><span lang="zh-CN">全场冠军 · Hack The Nest 2026</span></p>
+          <p class="copy"><span lang="en">Our four-person team built KAI on a Raspberry Pi 5. I connected the camera, display and audio hardware. KAI reads grocery receipts into the pantry inventory, scans printed recipes and answers spoken questions about ingredients.</span><span lang="zh-CN">我们四个人用树莓派 5 做了 KAI。我把摄像头、显示屏和音频设备接入系统。它能扫小票更新库存、识别纸质菜谱，也能回答「家里还有哪些食材」。</span></p>
+          <div class="links">
+            <a class="external" href="https://youtu.be/Y04v03vnzow" target="_blank" rel="noopener"><span lang="en">Project trailer</span><span lang="zh-CN">宣传片</span></a>
+            <a class="external" href="https://devpost.com/software/kai-1d2u96" target="_blank" rel="noopener">Devpost</a>
+            <a class="external" href="https://github.com/haokang-uchicago/Kai-showcase" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </article>
+      <article class="row project" id="go2">
+        <div><h3><a href="inekf.html?view=minimal">Unitree Go2</a></h3><p class="sub"><span lang="en">Quadruped state estimation</span><span lang="zh-CN">四足机器人状态估计</span></p></div>
+        <div>
+          <p class="copy"><span lang="en">We compared six contact-aided filters in Isaac Lab. Over a 10-second simulation, using four-foot contact and estimating IMU bias reduced 3D velocity RMSE from 0.6488 to 0.3123 m/s against the single-foot baseline.</span><span lang="zh-CN">我们在 Isaac Lab 里比较了六种利用足端接触信息的滤波器。在 10 秒仿真中，用四足接触估计 IMU 偏置后，三维速度 RMSE 从单足基线的 0.6488 降至 0.3123 m/s。</span></p>
+          <div class="links">
+            <a href="inekf.html?view=minimal"><span lang="en">Project notes</span><span lang="zh-CN">项目记录</span></a>
+            <a class="external" href="https://github.com/xiaweijiexox/RIEKF_unitree_go2" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </article>
+      <article class="row project" id="sam2">
+        <div><h3><a href="sam2.html?view=minimal">SAM2</a></h3><p class="sub"><span lang="en">Brain MRI segmentation</span><span lang="zh-CN">脑部 MRI 分割</span></p></div>
+        <div>
+          <p class="copy"><span lang="en">I built the MRI preprocessing and inference pipeline for BraTS and fine-tuned SAM2 with LoRA. Starting from one annotated slice, the model propagates the tumor mask through the MRI volume in both directions.</span><span lang="zh-CN">我做了 BraTS 脑部 MRI 的预处理和推理流程，用 LoRA 微调 SAM2。标注一张切片后，模型从这一层向前、向后逐层推断肿瘤掩膜。</span></p>
+          <details>
+            <summary><span lang="en">Compare segmentation results</span><span lang="zh-CN">对照分割结果</span></summary>
+            <figure>
+              <img src="image/sam2-comparison.png" alt="BraTS MRI slice 108 with manual, base SAM2, and LoRA masks" width="1036" height="278">
+              <figcaption><span lang="en">Slice 108, left to right — MRI, manual mask, base SAM2, LoRA-tuned SAM2.</span><span lang="zh-CN">第 108 层切片，从左到右为 MRI 原图、人工标注、原始 SAM2 预测和 LoRA 微调后的预测。</span></figcaption>
+            </figure>
+          </details>
+          <div class="links"><a href="sam2.html?view=minimal"><span lang="en">Project notes</span><span lang="zh-CN">项目记录</span></a></div>
+        </div>
+      </article>
+    </section>
+    <section id="experience" aria-labelledby="experience-title">
+      <h2 class="section-title" id="experience-title"><span lang="en">Experience</span><span lang="zh-CN">经历</span></h2>
+      <article class="row job">
+        <div><h3><span lang="en">Huaqin Technology</span><span lang="zh-CN">华勤技术</span></h3><p class="date"><span lang="en">May–Aug 2026 · Shanghai</span><span lang="zh-CN">2026 年 5–8 月 · 上海</span></p></div>
+        <p><span lang="en">Storage driver R&amp;D intern. Investigated UFS Host Performance Booster in C driver code and benchmarked F2FS and ext4 with iozone and dd.</span><span lang="zh-CN">存储驱动研发实习。在 C 驱动代码中分析 UFS HPB 的行为，用 iozone 和 dd 对比 F2FS 和 ext4 的存储性能。</span></p>
+      </article>
+      <article class="row job">
+        <div><h3><span lang="en">University of Michigan</span><span lang="zh-CN">密歇根大学</span></h3></div>
+        <p><span lang="en">Graduate Student Grader, Electrical and Computer Engineering.</span><span lang="zh-CN">在电气与计算机工程系担任 Graduate Student Grader，负责课程评分。</span></p>
+      </article>
+    </section>
+  </main>
+  <footer id="contact">
+    <span class="name">Shaohan Wang</span>
+    <a href="mailto:shaohanw@umich.edu">shaohanw@umich.edu</a>
+    <a class="external" href="https://github.com/shaohanw" target="_blank" rel="noopener">GitHub</a>
+  </footer>
+</body>
+</html>
